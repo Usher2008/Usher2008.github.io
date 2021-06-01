@@ -1,0 +1,148 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="安卓逆向踩坑记录"><meta name="keywords" content="reverse,Android"><meta name="author" content="Usher"><meta name="copyright" content="Usher"><title>安卓逆向踩坑记录 | Usher</title><link rel="shortcut icon" href="/Bpp5.ico"><link rel="stylesheet" href="/css/index.css?version=1.7.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.7.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="dns-prefetch" href="https://hm.baidu.com"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?e6da755d1e893220d7a8b31a374c2fde";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();</script><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://v1.hitokoto.cn/?encode=js&amp;charset=utf-8&amp;select=.footer_custom_text" defer></script><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+} </script><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="Usher" type="application/atom+xml">
+<link rel="alternate" href="/rss2.xml" title="Usher" type="application/rss+xml">
+</head><body><canvas class="fireworks"></canvas><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#安卓逆向踩坑记录"><span class="toc-number">1.</span> <span class="toc-text">安卓逆向踩坑记录</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#前期准备"><span class="toc-number">1.1.</span> <span class="toc-text">前期准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#adb的两种连接方式"><span class="toc-number">1.2.</span> <span class="toc-text">adb的两种连接方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#usb连接"><span class="toc-number">1.2.1.</span> <span class="toc-text">usb连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#vmos无线adb"><span class="toc-number">1.2.2.</span> <span class="toc-text">vmos无线adb</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#so层调试"><span class="toc-number">1.3.</span> <span class="toc-text">so层调试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#java层调试"><span class="toc-number">1.4.</span> <span class="toc-text">java层调试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JNI-OnLoad断点"><span class="toc-number">1.5.</span> <span class="toc-text">JNI_OnLoad断点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#不root调试"><span class="toc-number">1.6.</span> <span class="toc-text">不root调试</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://cdn.v2ex.com/gravatar/9d01d5093fbd2209d0b341255eb535de?d=identicon"></div><div class="author-info__name text-center">Usher</div><div class="author-info__description text-center">a HUT ctfer</div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">15</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">7</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">2</span></a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://ae01.alicdn.com/kf/H5a0d890c52324d6b90b4f0010d618354N.png)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Usher</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">主页</a><a class="site-page" href="/archives">存档</a><a class="site-page" href="/tags">标签</a><a class="site-page" href="/categories">分类</a><a class="site-page" href="/links">友链</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> 搜索</span></a></span></div><div id="post-info"><div id="post-title">安卓逆向踩坑记录</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2021-03-21</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/daily/">daily</a><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">921</span><span class="post-meta__separator">|</span><span>阅读时长: 3 分钟</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h1 id="安卓逆向踩坑记录"><a href="#安卓逆向踩坑记录" class="headerlink" title="安卓逆向踩坑记录"></a>安卓逆向踩坑记录</h1><h2 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h2>
+
+要完整完成该文章的内容至少需要<br>
+
+硬件:<br>
+
+一台安卓机(root不root都行)  一条数据线  一个wifi以及网卡<br>
+
+软件:<br>
+ida、adb、jeb、vmos、v&nctf公开赛crackme1.apk<br>
+
+<a id="more"></a>
+
+<h2 id="adb的两种连接方式"><a href="#adb的两种连接方式" class="headerlink" title="adb的两种连接方式"></a>adb的两种连接方式</h2><h3 id="usb连接"><a href="#usb连接" class="headerlink" title="usb连接"></a>usb连接</h3><p>(手机<strong>需要root</strong> 小米谷歌比较好root 其他…)</p>
+<p>一般情况是这样的</p>
+<p>usb连接电脑选择传输文件</p>
+<p>打开手机的设置 选中关于手机 然后点很多下版本号</p>
+<img src="http://inews.gtimg.com/newsapp_ls/0/13316590219/0" alt="" style="zoom:50%;" />
+
+<p>就会出现开发者模式(如果找不到可以在设置里搜索)</p>
+<p>进去打开USB调试选项</p>
+<img src="http://inews.gtimg.com/newsapp_ls/0/13316590382/0" style="zoom:50%;" />
+
+<p>然后cmd输入指令</p>
+<p><img src="http://inews.gtimg.com/newsapp_ls/0/13316590446/0" alt=""></p>
+<blockquote>
+<p>adb kill-server 这句的意思是终止adb服务</p>
+<p>adb devices     意思是查看现在所连接的设备 如果adb服务没开会帮你打开</p>
+<p>adb shell          就是拿到设备的shell了</p>
+</blockquote>
+<h3 id="vmos无线adb"><a href="#vmos无线adb" class="headerlink" title="vmos无线adb"></a>vmos无线adb</h3><p>vmos最大的好处就是</p>
+<p>即使主机<strong>没有root</strong> vmos虚拟机内<strong>也可以获得root权限</strong></p>
+<p>电脑和手机连接同一wifi</p>
+<p>然后打开虚拟机</p>
+<p>在vmos的设置里找到网络adb并打开</p>
+<img src="http://inews.gtimg.com/newsapp_ls/0/13316590518/0" alt="" style="zoom:50%;" />
+
+<p>然后输入如图指令</p>
+<p><img src="http://inews.gtimg.com/newsapp_ls/0/13316590593/0" alt="image-20210318163133827"></p>
+<blockquote>
+<p>adb connect 192.168.123.193:5666   这句是连接这个ip</p>
+</blockquote>
+<p>如果没连接上重新打开一下网络ADB就行</p>
+<h2 id="so层调试"><a href="#so层调试" class="headerlink" title="so层调试"></a>so层调试</h2><img src="http://inews.gtimg.com/newsapp_ls/0/13316590635/0" alt="" style="zoom:80%;" />
+
+<p>我这边提前把服务丢进去了</p>
+<p>如果没丢进去 一般就像这种这样</p>
+<img src="http://inews.gtimg.com/newsapp_ls/0/13316590690/0" alt="" style="zoom:80%;" />
+
+<p>打开之后还要转发一下tcp端口</p>
+<p>这里我是这样理解的</p>
+<p>前一个23946是主机这边所连接的端口</p>
+<p>而后一个23946是虚拟机里ida服务所使用的默认的端口</p>
+<p>而这里所实现的就是将192.168.123.193:23946转发到了127.0.0.1:23946端口</p>
+<p>所以这一步也不是必须做的</p>
+<p><img src="http://inews.gtimg.com/newsapp_ls/0/13316590788/0" alt=""></p>
+<p>如果转发了端口,ida里就可以这样设置了</p>
+<p><img src="http://inews.gtimg.com/newsapp_ls/0/13316590838/0" alt=""></p>
+<p>而如果没有转发端口</p>
+<p><img src="http://inews.gtimg.com/newsapp_ls/0/13316590907/0" alt=""></p>
+<p>这样设置也是可以的</p>
+<p>然后attach</p>
+<p><img src="http://inews.gtimg.com/newsapp_ls/0/13316590972/0" alt=""></p>
+<p>如果在modules里找不到.so而是.apk</p>
+<p><img src="http://inews.gtimg.com/newsapp_ls/0/13316591021/0" alt="image-20210318155827056"></p>
+<p>这样根本调试不了</p>
+<p>经过排查以后,发现如果使用mt管理器安装apk,会将so文件解压到了本地</p>
+<p>而直接用系统安装的时候这个装so的文件夹是空的,是临时从base.apk里解压出来的</p>
+<img src="http://inews.gtimg.com/newsapp_ls/0/13316591095/0" alt="" style="zoom:50%;" />
+
+<p>所以解决办法就是将so移动到app运行的位置</p>
+<p>或者直接用mt管理器安装就可以了</p>
+<p><img src="http://inews.gtimg.com/newsapp_ls/0/13316591146/0" alt=""></p>
+<p>我提前将断点下在了主要函数上</p>
+<p>F9运行之后点一下check就可以在关键逻辑下断下来了</p>
+<p><img src="http://inews.gtimg.com/newsapp_ls/0/13316591227/0" alt=""></p>
+<h2 id="java层调试"><a href="#java层调试" class="headerlink" title="java层调试"></a>java层调试</h2><p>在确保连接了adb之后</p>
+<p>打开jeb找到关键地方下断点</p>
+<img src="http://inews.gtimg.com/newsapp_ls/0/13316591308/0" style="zoom:80%;" />
+
+<p>在上面点击调试器-&gt;开始</p>
+<p><img src="http://inews.gtimg.com/newsapp_ls/0/13316591397/0" alt=""></p>
+<p>附上</p>
+<p><img src="http://inews.gtimg.com/newsapp_ls/0/13316591477/0" alt=""></p>
+<p>点击手机check</p>
+<p><img src="http://inews.gtimg.com/newsapp_ls/0/13316591535/0" alt=""></p>
+<p>断下来了</p>
+<p>但是右边的变量显示的好像是一个地址</p>
+<p>分析汇编应该是一个string对象</p>
+<p>尝试更改显示类型</p>
+<p><img src="http://inews.gtimg.com/newsapp_ls/0/13316591607/0" alt=""></p>
+<p>over</p>
+<h2 id="JNI-OnLoad断点"><a href="#JNI-OnLoad断点" class="headerlink" title="JNI_OnLoad断点"></a>JNI_OnLoad断点</h2><p>JNI_OnLoad这个函数是apk在加载的时候就会运行的函数</p>
+<p>如果通过附加是不能在这里断下来的,因为早就执行完了</p>
+<p><s>在看过了网上的师傅们的操作之后,我也学会了一点方法论</s></p>
+<p>jdwp可以用安卓stdio的ddms替代,不过比较麻烦</p>
+<p>由于没有root(?),没复现成,vmos也复现不了 故不分析了</p>
+<blockquote>
+<p>am start -D -n com.ctf.crackme/com.ctf.crackme.MainActivity</p>
+<p>./ida64</p>
+<p>adb jdwp</p>
+<p>adb forward tcp:23946 jdwp:5852</p>
+<p>jdb -connect com.sun.jdi.SocketAttach:port=23946,hostname=localhost</p>
+</blockquote>
+<h2 id="不root调试"><a href="#不root调试" class="headerlink" title="不root调试"></a>不root调试</h2><p>简单来说就是在安卓里使用run-as命令, 以被调试app的权限执行ida的服务</p>
+<p>注意将服务push到data/local/tmp里后,用copy命令复制到执行路径下,改权限后即可以运行</p>
+<p><a href="https://bbs.pediy.com/thread-262524.htm" target="_blank" rel="noopener">https://bbs.pediy.com/thread-262524.htm</a></p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Usher</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://usher2008.github.io/2021/03/21/%E5%AE%89%E5%8D%93%E9%80%86%E5%90%91%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/">https://usher2008.github.io/2021/03/21/%E5%AE%89%E5%8D%93%E9%80%86%E5%90%91%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://usher2008.github.io">Usher</a>！</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/reverse/">reverse</a><a class="post-meta__tags" href="/tags/Android/">Android</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2021/04/11/MRCTF%202021/"><i class="fa fa-chevron-left">  </i><span>MRCTF 2021</span></a></div><div class="next-post pull-right"><a href="/2021/01/15/net%E9%80%86%E5%90%91%E7%A5%9E%E5%99%A8dnSpy/"><span>.net逆向神器dnSpy</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="vcomment"></div><script src="https://cdn1.lncld.net/static/js/3.0.4/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var notify = 'false' == true ? true : false;
+var verify = 'false' == true ? true : false;
+var GUEST_INFO = ['nick','mail','link'];
+var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+  return GUEST_INFO.indexOf(item) > -1
+});
+guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
+window.valine = new Valine({
+  el:'#vcomment',
+  notify:notify,
+  verify:verify,
+  appId:'PDFE34YDTRR0GIE6VpEBfKz6-gzGzoHsz',
+  appKey:'kL2Civ6UKNUuspIE8ItxWnEu',
+  placeholder:'Helloooo',
+  avatar:'identicon',
+  guest_info:guest_info,
+  pageSize:'10',
+  lang: 'zh-cn'
+})</script></div></div><footer class="footer-bg" style="background-image: url(https://ae01.alicdn.com/kf/H5a0d890c52324d6b90b4f0010d618354N.png)"><div class="layout" id="footer"><div class="copyright">&copy;2020 - 2021 By Usher</div><div class="framework-info"><span>Driven - </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody" target="_blank" rel="noopener"><span>Melody</span></a></div><div class="footer_custom_text">hitokoto</div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.7.0"></script><script src="/js/fancybox.js?version=1.7.0"></script><script src="/js/sidebar.js?version=1.7.0"></script><script src="/js/copy.js?version=1.7.0"></script><script src="/js/fireworks.js?version=1.7.0"></script><script src="/js/transition.js?version=1.7.0"></script><script src="/js/scroll.js?version=1.7.0"></script><script src="/js/head.js?version=1.7.0"></script><script src="/js/search/local-search.js"></script><script id="ribbon" src="/js/third-party/canvas-ribbon.js" size="150" alpha="0.6" zIndex="-1" data-click="true"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div></body></html>
